@@ -1,0 +1,71 @@
+Programming Assignment #4
+Due: Tues, Mar 2
+Objective
+Upon completion of this program, you should gain experience in working with dynamic arrays of objects, as well as working with two classes in a "has-a" relationship. This will also give some extra practice with array and c-string usage.
+Task
+You will be writing classes that implement a simulation of a playlist for a digital music device.  The list will be a dynamic array of Song objects, each of which stores several pieces of information about a song.  You will need to finish the writing of two classes:  Song and Playlist.  The full header file for the Song class has been provided in a file called song.h.  You can get a copy of it here.
+Program Details and Requirements
+1) Using the Song class declaration, write the song.cpp file and define all of the member functions that are declared in the file song.h.   (Do not change song.h in any way.  Just take the existing class interface and fill in the function definitions).  Notice that there are only six categories of songs in this class:  POP, ROCK, ALTERNATIVE, COUNTRY, HIPHOP, and PARODY.  The expected functions behaviors are described in the comments of this header file.
+ 
+
+2) Write a class called Playlist (filenames are playlist.h and playlist.cpp).  A Playlist object should contain a list of songs. There is no size limit to the song list, so it should be implemented with a dynamically allocated array.  (This means you'll need an array of Song objects).  You can add any public or private functions into the Playlist class that you feel are helpful.  In addition to the Playlist class itself, you will also create a menu program to manage the playlist. Note that the Playlist class should provide most of the functionality -- as the idea is to build a versatile and reusable class. The menu program you write is just for testing purposes, so the major functionality will be in the Playlist class itself. The Playlist member functions will be the interface betwen this menu program and the internally stored data (the list of songs).
+
+Rules for the Playlist class:
+
+All member data of class Playlist must be private
+There should be no cin statements inside the Playlist class member functions.  To ensure the class is more versatile, any user input (i.e. keyboard) described in the menu program below should be done in the menu program itself.  Design the Playlist class interface so that any items of information from outside the class are received through parameters of the public member functions.
+The list of Songs must be implemented with a dynamically allocated array. Between calls to Playlist member functions, there should never be more than 5 unused slots in this array (i.e. the number of allocated spaces may be at most 5 larger than the number of slots that are actually filled with real data). This means that you will need to ensure that the array allocation expands or shrinks at appropriate times.  Whenever the array is resized, print a message (for testing purposes) that states that the array is being resized, and what the new size is. Example:  "** Array being resized to 10 allocated slots".
+Since dynamic allocation is being used inside the Playlist class, an appropriate destructor must be defined, to clean up memory. The class must not allow any memory leaks
+You must use the const qualifier in all appropriate places (const member functions, const parameters, const returns, where appropriate).
+3) Write a main program (filename menu.cpp) that creates a single Playlist object and then implements a menu interface to allow interaction with the object. Your main program should implement the following menu loop (any single letter options should work on both lower and upper case inputs):
+
+  A:   Add a song to the playlist 
+  F:   Find a song on the playlist 
+  D:   Delete a song from the playlist
+  S:   Show the entire playlist
+  C:   Category summary 
+  Z:   Show playlist size
+  M:   Show this Menu 
+  X:   eXit the program 
+Behavior of menu selections:
+
+Always ask for user input in the order specified.  Remember, all user inputs described in the menu options below should be done by the menu program (not inside the Playlist class). Such input can then be sent into the Playlist class -- the Playlist class member functions should do most of the actual work, since they will have access to the list of songs. For all user inputs (keyboard), assume the following:
+
+a song title and artist will always be input as c-strings (c-style strings), of maximum lengths 35 and 20, respectively.  You may assume that the user will not enter more characters than the stated limits for these inputs.
+when asking for the category, user entry should always be a single character.  The correct values are P, R, A, C, H, and Y - for Pop, Rock, Alternative, Country, HipHop, and Parody, respectively.   Uppercase and lowercase inputs should both be accepted.  Whenever the user enters any other character for the category, this is an error -- print an error message and prompt the user to enter the data again (Example error message: "Invalid category.  Please re-enter: ").
+user input of the size should be a positive int, in kilobytes.  You may assume that the user will enter an integer.  Whenever the user enters a number that is not positive, it is considered an error -- so an error message should be printed and the user should be prompted to re-enter the size.  (Example: "Must enter a positive size.  Please re-enter: ").
+User input of menu options are letters, and both upper and lower case entries should be allowed.
+A: This menu option should allow the adding of a song to the playlist. The user will need to type in the song's information. Prompt and allow the user to enter the information in the following order:   title, artist, category, size.  The information should be sent into the Playlist object and stored in the list of songs.
+F: This option should allow the user to search for a song in the playlist by title or by artist. When this option is selected, ask the user to enter a search string (may assume user entry will be a string 35 characters or less). If the search string matches a song title, display the information for that song (output format is described in the operator<< function that goes with the Song class). If the search string matches an artist/group in the list, display the information for all songs by that artist. If no matching songs are found in the search , display an appropriate message informing the user that there were no results in the playlist.
+
+D: This option should delete a song from the playlist. When this option is selected, ask the user to type in the title of the song (you may assume that song titles in the list will be unique). Remove this song from the playlist. If there is no such title, inform the user and return to the menu.
+
+S: This option should simply print the entire playlist to the screen, one line per song, in an organized manner (like a table). Each line should contain one song's information, as described in the song.h file. Also, display the total number of songs in the playlist, as well as the total size of the playlist (in Megabytes, to 2 decimal places).
+
+C: This option should list the playlist contents for one specific category. When this option is selected, ask the user to input a category to print. For the category selected, print out the contents of the playlist, as in the Show option, but for the songs matching the selected category only. (e.g. list all of the Pop songs). After this, also display the total quantity, as well as the total file size (the sum of the sizes), taken up by songs in this category. Print this size in Megabytes to 2 decimal places.
+
+Z: This option should compute and print the total file storage taken up by the playlist, printed out in kilobytes.
+
+M:  Re-display the menu.
+X:  Exit the menu program.
+ 
+
+5) General Requirements:
+
+All class member data must be private
+ALL string usages in this assignment are to be implemented with C-style strings (i.e. null-terminated character arrays). You may NOT use the C++ string class library. A large point of this assignment is to do your own dynamic memory allocation and management, as well as to practice with fixed size C-strings
+An invalid menu selection should produce an appropriate output message to the user, like "Not a valid option, choose again."
+For all of these options, any output to the screen should be user-friendly. By this, assume that the user of the program has never seen it before. All output should clearly indicate what information is being presented, and the user should always be told what is expected in terms of input.
+Adhere to the good programming practices discussed in class. (No global variables, other than constants or enumerations. Use const in all appropriate places. Don't #include .cpp files. Document your code. etc).
+You may use the following libraries: iostream, iomanip, cstring, cctype
+Extra Credit:
+Write a function called "Sort", and add in a menu option (using the letter 'O') for sorting the playlist. When this menu option is chosen, ask the user whether they want to sort by artist or title (enter 'A' or 'T', allowing upper or lower case). Then, sort the playlist by ascending alphabetic (or actually, lexicographic) order, on the appropriate field (author or title).
+Submit the following files through the web page in the usual manner:
+
+  song.cpp 
+  playlist.h 
+  playlist.cpp 
+  menu.cpp 
+You can run my version of the menu executable from linprog.cs.fsu.edu with the command:
+
+  ~myers/copprog/menu4
